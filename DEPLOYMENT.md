@@ -164,8 +164,8 @@ Copy the backend URL output (e.g. `https://senguard-backend-abc123-uc.a.run.app`
 ### Via gcloud CLI:
 ```bash
 gcloud builds triggers create github \
-  --repo-name=YOUR_GITHUB_REPO_NAME \
-  --repo-owner=YOUR_GITHUB_USERNAME \
+  --repo-name=nobiart-ai \
+  --repo-owner=ecouso1977 \
   --branch-pattern='^main$' \
   --build-config=cloudbuild.yaml \
   --substitutions='_REGION=us-central1,_REPO=senguard,_BACKEND_URL=https://senguard-backend-YOUR_HASH-uc.a.run.app' \
@@ -178,10 +178,9 @@ gcloud builds triggers create github \
 
 ```bash
 cd /app
-git init
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+git remote add origin https://github.com/ecouso1977/nobiart-ai.git
 git add .
-git commit -m "feat: initial SenGuard deployment"
+git commit -m "feat: SenGuard initial deployment setup"
 git push -u origin main
 ```
 

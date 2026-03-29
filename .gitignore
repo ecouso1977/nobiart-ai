@@ -76,6 +76,19 @@ agenthub/agents/youtube/db
 # Build caches
 .cache/
 
+# Environment files — NEVER commit these (use Secret Manager in production)
+*.env
+.env
+.env.local
+.env.production
+.env.staging
+backend/.env
+frontend/.env
+**/.env
+# Allow example files
+!*.env.example
+!**/.env.example
+
 memory/test_credentials.md
 
 # Mobile development

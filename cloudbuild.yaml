@@ -1,6 +1,7 @@
 # ─────────────────────────────────────────────────────────────────
 # SenGuard – Cloud Build CI/CD Pipeline
-# Triggers on every push to: main (or master) branch
+# GitHub Repo : https://github.com/ecouso1977/nobiart-ai
+# Triggers on : push to main branch
 #
 # SUBSTITUTION VARIABLES (set in Cloud Build trigger UI):
 #   _REGION          : GCP region            (default: us-central1)
