@@ -1,0 +1,21 @@
+# Root .dockerignore — applies to all Docker builds from /app
+.git
+.gitignore
+*.md
+.env
+**/.env
+**/node_modules
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/.pytest_cache
+**/test_reports
+**/tests
+.emergent
+memory/
+scripts/
+README.md
+Dockerfile*
+docker-compose*
+cloudbuild.yaml
+nginx.conf
