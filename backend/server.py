@@ -36,9 +36,12 @@ db = mongo_client[DB_NAME]
 app = FastAPI(title="RetouchFly API", version="1.0.0")
 api_router = APIRouter(prefix="/api")
 
+CORS_ORIGINS = os.environ.get('CORS_ORIGINS', '*')
+cors_origins = CORS_ORIGINS.split(',') if CORS_ORIGINS != '*' else ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL, "http://localhost:3000", "http://localhost:3001"],
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -495,8 +498,8 @@ async def create_post(req: SchedulePostRequest, current_user: dict = Depends(get
 async def get_posts(current_user: dict = Depends(get_current_user)):
     posts = await db.scheduled_posts.find(
         {"user_id": current_user["_id"], "is_deleted": {"$ne": True}},
-        {"_id": 0}
-    ).sort("scheduled_at", 1).to_list(500)
+        {"_id": 0, "id": 1, "content": 1, "platforms": 1, "scheduled_at": 1, "recurrence": 1, "status": 1, "media_paths": 1, "created_at": 1}
+    ).sort("scheduled_at", 1).limit(200).to_list(200)
     return posts
 
 @api_router.delete("/schedule/posts/{post_id}")
@@ -574,8 +577,8 @@ async def create_project(data: dict, current_user: dict = Depends(get_current_us
 async def get_projects(current_user: dict = Depends(get_current_user)):
     projects = await db.projects.find(
         {"user_id": current_user["_id"], "is_deleted": {"$ne": True}},
-        {"_id": 0}
-    ).sort("created_at", -1).to_list(50)
+        {"_id": 0, "id": 1, "title": 1, "type": 1, "thumbnail": 1, "filter_applied": 1, "storage_path": 1, "created_at": 1, "updated_at": 1}
+    ).sort("created_at", -1).limit(50).to_list(50)
     return projects
 
 @api_router.delete("/projects/{project_id}")
