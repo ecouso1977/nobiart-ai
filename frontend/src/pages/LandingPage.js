@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth, formatError } from "@/contexts/AuthContext";
 import { Zap, ImagePlus, Video, Calendar, Sparkles, ChevronRight, Star, X } from "lucide-react";
@@ -21,10 +21,9 @@ export default function LandingPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  if (user) {
-    navigate("/dashboard");
-    return null;
-  }
+  useEffect(() => {
+    if (user) navigate("/dashboard");
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
