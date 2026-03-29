@@ -71,7 +71,7 @@ gcloud auth configure-docker us-central1-docker.pkg.dev
 
 ```bash
 # MongoDB Atlas connection string
-echo -n "mongodb+srv://USER:PASS@cluster.mongodb.net/senguard_db?retryWrites=true&w=majority" | \
+echo -n "mongodb+srv://nobiadmin:FCE\!B3n3f1ts@cluster0.7tyb3ys.mongodb.net/senguard_db?appName=Cluster0&retryWrites=true&w=majority" | \
   gcloud secrets create senguard-mongo-url --data-file=-
 
 # JWT secret (keep the same value from local .env)
