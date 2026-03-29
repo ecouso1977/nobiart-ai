@@ -1,0 +1,126 @@
+{
+  "theme": "dark",
+  "archetype": "Archetype 7: Electric & Neon",
+  "brand_name": "RetouchFly",
+  "brand_vibe": "Fun, snappy, Canva meets professional Adobe tools. High energy, dark mode default, neon accents.",
+  "colors": {
+    "background": {
+      "default": "#050505",
+      "surface": "#0F0F13",
+      "surface_elevated": "#1A1A24",
+      "glass": "rgba(15, 15, 19, 0.6)"
+    },
+    "primary": {
+      "DEFAULT": "#FF007A",
+      "hover": "#FF3399",
+      "glow": "rgba(255, 0, 122, 0.5)"
+    },
+    "secondary": {
+      "DEFAULT": "#E2FF31",
+      "hover": "#E8FF66",
+      "glow": "rgba(226, 255, 49, 0.5)"
+    },
+    "accent": {
+      "cyan": "#00E5FF",
+      "green": "#00FF9D",
+      "purple": "#9D4CDD"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#A0A0AB",
+      "muted": "#70707C",
+      "inverse": "#050505"
+    },
+    "border": {
+      "DEFAULT": "rgba(255, 255, 255, 0.1)",
+      "focus": "rgba(255, 0, 122, 0.5)"
+    }
+  },
+  "typography": {
+    "font_family": {
+      "heading": "Unbounded, sans-serif",
+      "body": "Manrope, sans-serif",
+      "mono": "JetBrains Mono, monospace"
+    },
+    "sizes": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tighter",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl tracking-tight",
+      "h3": "text-xl sm:text-2xl tracking-tight",
+      "h4": "text-lg sm:text-xl",
+      "body": "text-base leading-relaxed",
+      "small": "text-sm",
+      "label": "text-xs tracking-[0.2em] uppercase font-bold"
+    }
+  },
+  "spacing_and_layout": {
+    "philosophy": "Generous spacing. Control Room grid for dashboards. Tetris Bento grid for marketing.",
+    "dashboard_grid": "grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6",
+    "marketing_grid": "grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-8 lg:gap-12",
+    "container_padding": "p-6 sm:p-8 lg:p-12",
+    "border_radius": {
+      "card": "rounded-2xl",
+      "button": "rounded-full",
+      "input": "rounded-xl"
+    }
+  },
+  "surfaces_and_effects": {
+    "glassmorphism": "backdrop-blur-2xl bg-black/60 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]",
+    "cards": "bg-[#0F0F13] border border-white/10 hover:border-white/20 transition-colors duration-300",
+    "tracing_beam": "Use mask-image and framer-motion to create shimmering neon borders on active tool panels.",
+    "glow": "drop-shadow-[0_0_15px_rgba(255,0,122,0.4)] on active neon elements"
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#FF007A] text-white rounded-full px-6 py-3 font-medium hover:bg-[#FF3399] transition-all hover:shadow-[0_0_20px_rgba(255,0,122,0.4)]",
+      "secondary": "bg-transparent border border-white/20 text-white rounded-full px-6 py-3 font-medium hover:border-white/50 hover:bg-white/5 transition-all",
+      "ghost": "text-[#A0A0AB] hover:text-white transition-colors px-4 py-2"
+    },
+    "inputs": "bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#00E5FF] focus:ring-1 focus:ring-[#00E5FF] outline-none transition-all",
+    "shadcn_overrides": "Force all Shadcn components (Dialog, Select, Dropdown) to use dark mode colors. Overwrite popover backgrounds to #0F0F13 with border-white/10. Remove default Vercel look."
+  },
+  "icons": {
+    "library": "lucide-react",
+    "instructions": "Use lucide-react for standard UI icons. Use react-icons for social media logos (Meta, Instagram, TikTok, LinkedIn)."
+  },
+  "media": {
+    "hero_background": {
+      "url": "https://images.unsplash.com/photo-1773982417805-fef047dce498?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMGRhcmslMjBuZW9uJTIwbGFzZXIlMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc3NDc0Mzk2Nnww&ixlib=rb-4.1.0&q=85",
+      "description": "Abstract glowing neon lines on a dark background. Use with absolute positioning, object-cover, and low opacity (20-30%) behind the hero section."
+    },
+    "feature_photo_1": {
+      "url": "https://images.unsplash.com/photo-1746378890786-6deefdf600b0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwzfHxjeWJlcnB1bmslMjBuZW9uJTIwcG9ydHJhaXQlMjBwaG90b2dyYXBoeXxlbnwwfHx8fDE3NzQ3NDM5NTl8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Cyberpunk portrait. Use as a 'Before/After' demonstration image in the editor section."
+    },
+    "feature_photo_2": {
+      "url": "https://images.pexels.com/photos/8108406/pexels-photo-8108406.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Stylish futuristic portrait. Use as a sample image card for 'Neon Noir' filter preview."
+    },
+    "landscape_sample": {
+      "url": "https://images.unsplash.com/photo-1723750599301-fee00405eaff?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwyfHxjaW5lbWF0aWMlMjBsYW5kc2NhcGUlMjBzdW5zZXQlMjBwaG90b2dyYXBoeXxlbnwwfHx8fDE3NzQ3NDM5NjB8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Cinematic sunset landscape. Use for the 'Golden Hour Glow' filter sample."
+    },
+    "dashboard_preview": {
+      "url": "https://images.pexels.com/photos/6476257/pexels-photo-6476257.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Creative agency team working. Use for 'Social Media Management' feature preview."
+    }
+  },
+  "motion": {
+    "hover": "Scale up slightly (scale-105) on interactive image cards. Subtle translate-y-1 on buttons.",
+    "page_transition": "Fade in with a slight upward translation.",
+    "editor_tools": "Staggered fade-in for the filter sidebar list using Framer Motion."
+  },
+  "accessibility": {
+    "contrast": "Ensure text over neon elements remains dark (#050505) for contrast. Use APCA guidelines.",
+    "focus": "Use focus:ring-2 focus:ring-[#FF007A] focus:outline-none for keyboard navigation.",
+    "data_testid": "MANDATORY. Apply data-testid to all buttons, tool toggles, forms, and canvas interactions."
+  },
+  "instructions_to_main_agent": [
+    "Strictly enforce dark mode globally. Set background to #050505 and text to #FFFFFF.",
+    "Use Tailwind arbitrary values for exact hex codes if they aren't in tailwind.config.js, e.g., bg-[#050505].",
+    "For the Editor Canvas page, construct a professional 3-pane layout (Left sidebar tools, Center Canvas, Right sidebar properties) using flex or CSS grid.",
+    "Apply 'data-testid' to ALL interactive elements (buttons, sliders, filter thumbnails).",
+    "Ensure the application routes are properly structured to support the 8 key pages outlined in the problem statement.",
+    "Do NOT use pure white #FFFFFF for large surface areas. Use #0F0F13 for panels.",
+    "Implement smooth micro-animations on filter selection (e.g., a glowing pink border when a filter is active)."
+  ]
+}
