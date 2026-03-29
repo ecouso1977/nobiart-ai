@@ -1,5 +1,5 @@
 """
-RetouchFly API Backend Tests - Auth, Stats, Templates, Scheduler, Projects
+SenGuard API Backend Tests - Auth, Stats, Templates, Scheduler, Projects
 """
 import pytest
 import requests
@@ -17,7 +17,7 @@ def session():
 def admin_session():
     s = requests.Session()
     s.headers.update({"Content-Type": "application/json"})
-    resp = s.post(f"{BASE_URL}/api/auth/login", json={"email": "admin@retouchfly.com", "password": "RetouchFly2024!"})
+    resp = s.post(f"{BASE_URL}/api/auth/login", json={"email": "admin@senguard.com", "password": "SenGuard2024!"})
     assert resp.status_code == 200, f"Admin login failed: {resp.text}"
     return s
 
@@ -30,14 +30,14 @@ class TestAuth:
         r = session.get(f"{BASE_URL}/api/")
         assert r.status_code == 200
         data = r.json()
-        assert "RetouchFly" in data["message"]
+        assert "SenGuard" in data["message"]
         print("✓ Root endpoint OK")
 
     def test_register_new_user(self, session):
         # Cleanup first if already exists
         r = session.post(f"{BASE_URL}/api/auth/register", json={
             "name": "Test User",
-            "email": "test@retouchfly.com",
+            "email": "test@senguard.com",
             "password": "Test1234!"
         })
         # Allow 400 if already registered
@@ -46,18 +46,18 @@ class TestAuth:
 
     def test_login_admin(self, session):
         r = session.post(f"{BASE_URL}/api/auth/login", json={
-            "email": "admin@retouchfly.com",
-            "password": "RetouchFly2024!"
+            "email": "admin@senguard.com",
+            "password": "SenGuard2024!"
         })
         assert r.status_code == 200
         data = r.json()
-        assert data["email"] == "admin@retouchfly.com"
+        assert data["email"] == "admin@senguard.com"
         assert data["role"] == "admin"
         print("✓ Admin login OK")
 
     def test_login_invalid(self, session):
         r = session.post(f"{BASE_URL}/api/auth/login", json={
-            "email": "admin@retouchfly.com",
+            "email": "admin@senguard.com",
             "password": "wrongpass"
         })
         assert r.status_code == 401
@@ -125,7 +125,7 @@ class TestScheduler:
 
     def test_create_scheduled_post(self, admin_session):
         r = admin_session.post(f"{BASE_URL}/api/schedule/posts", json={
-            "content": "TEST_ Hello from RetouchFly! #ai #photo",
+            "content": "TEST_ Hello from SenGuard! #ai #photo",
             "platforms": ["instagram", "twitter"],
             "scheduled_at": "2026-03-01T10:00:00Z",
             "recurrence": None

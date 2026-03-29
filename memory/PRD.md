@@ -1,14 +1,14 @@
-# RetouchFly - PRD
+# SenGuard - PRD
 
 ## App Overview
-**RetouchFly** - Premium AI photo/image enhancer, editor, video generator, and automated social media management platform. Fun, snappy brand — "Canva meets professional Adobe tools."
+**SenGuard** — Premium AI photo/image enhancer, editor, video generator, and automated social media management platform. Fun, snappy brand — "Canva meets professional Adobe tools."
 
 **URL**: https://photo-studio-ai-4.preview.emergentagent.com
 
 ## Architecture
 - **Frontend**: React 19 + Tailwind CSS + Shadcn UI
 - **Backend**: FastAPI (Python) on port 8001
-- **Database**: MongoDB (retouchfly_db)
+- **Database**: MongoDB (senguard_db)
 - **AI**: Google Gemini (image gen), Google Veo (video gen), google-generativeai (profile optimizer)
 - **Storage**: Emergent Object Storage
 - **Auth**: JWT httpOnly cookies
@@ -23,7 +23,7 @@
 
 ### Backend (/app/backend/server.py)
 - ✅ JWT auth (register, login, logout, me) with bcrypt
-- ✅ Admin seeding (admin@retouchfly.com)
+- ✅ Admin seeding (admin@senguard.com)
 - ✅ File upload to Emergent Object Storage
 - ✅ File serving from storage
 - ✅ AI Image Generation (Gemini Nano Banana via emergentintegrations)
@@ -48,7 +48,7 @@
 Neon Noir, Golden Hour, Nordic Cold, Analog 35mm, HDR Crisp, Cyberpunk Glow, Vintage Film, Cinematic Grain (Cinematic), Glitch VHS, Pop Art Halftone, Pastel Dream, Gothic Monochrome, Cyber-Edge, Soft Focus (Artistic), Y2K Sparkle, Sunset Gradient, Vogue Studio, Lo-Fi Warmth, Holographic Foil, HDR Pop (Social)
 
 ## Credentials
-- Admin: admin@retouchfly.com / RetouchFly2024!
+- Admin: admin@senguard.com / SenGuard2024!
 - Gemini API Key: AIzaSyDZdo90XSgVR6oiiENjtmw-l9LZAcgmuqw
 - Emergent LLM Key: sk-emergent-f251058F771Aa4c927 (for image gen + storage)
 

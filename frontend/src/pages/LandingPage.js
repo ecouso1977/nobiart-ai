@@ -59,7 +59,7 @@ export default function LandingPage() {
             <Zap size={18} className="text-white" />
           </div>
           <span className="font-bold text-xl" style={{ fontFamily: 'Unbounded, sans-serif' }}>
-            Retouch<span className="text-[#FF007A]">Fly</span>
+            Sen<span className="text-[#FF007A]">Guard</span>
           </span>
         </div>
         <div className="flex items-center gap-3">
@@ -96,7 +96,7 @@ export default function LandingPage() {
         </h1>
 
         <p className="text-lg text-[#A0A0AB] max-w-2xl mx-auto mb-10 leading-relaxed">
-          RetouchFly is the fun, powerful AI studio for creators. Edit photos, generate videos, schedule posts — all in one ridiculous-easy tool.
+          SenGuard is the fun, powerful AI studio for creators. Edit photos, generate videos, schedule posts — all in one ridiculous-easy tool.
         </p>
 
         <div className="flex items-center justify-center gap-4 flex-wrap">
@@ -147,7 +147,7 @@ export default function LandingPage() {
         <div className="mt-16 rounded-3xl overflow-hidden border border-white/10 relative">
           <img
             src="https://images.unsplash.com/photo-1773982417805-fef047dce498?crop=entropy&cs=srgb&fm=jpg&q=80&w=1200&h=500&fit=crop"
-            alt="RetouchFly Editor"
+            alt="SenGuard Editor"
             className="w-full object-cover opacity-60"
             style={{ maxHeight: 400 }}
           />
@@ -174,7 +174,7 @@ export default function LandingPage() {
                 <Zap size={18} className="text-white" />
               </div>
               <span className="font-bold text-xl text-white" style={{ fontFamily: 'Unbounded, sans-serif' }}>
-                Retouch<span className="text-[#FF007A]">Fly</span>
+                Sen<span className="text-[#FF007A]">Guard</span>
               </span>
             </div>
 

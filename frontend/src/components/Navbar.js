@@ -35,7 +35,7 @@ export default function Navbar() {
             </div>
             <div>
               <span className="font-bold text-white text-lg" style={{ fontFamily: 'Unbounded, sans-serif' }}>
-                Retouch<span className="text-[#FF007A]">Fly</span>
+                Sen<span className="text-[#FF007A]">Guard</span>
               </span>
               <p className="text-[10px] text-[#A0A0AB] tracking-widest uppercase">AI Studio</p>
             </div>
@@ -94,7 +94,7 @@ export default function Navbar() {
             <Zap size={14} className="text-white" />
           </div>
           <span className="font-bold text-white" style={{ fontFamily: 'Unbounded, sans-serif' }}>
-            Retouch<span className="text-[#FF007A]">Fly</span>
+            Sen<span className="text-[#FF007A]">Guard</span>
           </span>
         </Link>
         <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white p-1">

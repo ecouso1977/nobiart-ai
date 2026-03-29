@@ -1,5 +1,5 @@
 """
-RetouchFly Backend - AI-powered photo editor & social media management
+SenGuard Backend - AI-powered photo editor & social media management
 """
 from dotenv import load_dotenv
 load_dotenv()
@@ -25,7 +25,7 @@ JWT_ALGORITHM = "HS256"
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
 EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY', '')
 FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
-APP_NAME = "retouchfly"
+APP_NAME = "senguard"
 STORAGE_URL = "https://integrations.emergentagent.com/objstore/api/v1/storage"
 
 # --- MongoDB ---
@@ -33,7 +33,7 @@ mongo_client = AsyncIOMotorClient(MONGO_URL)
 db = mongo_client[DB_NAME]
 
 # --- FastAPI ---
-app = FastAPI(title="RetouchFly API", version="1.0.0")
+app = FastAPI(title="SenGuard API", version="1.0.0")
 api_router = APIRouter(prefix="/api")
 
 CORS_ORIGINS = os.environ.get('CORS_ORIGINS', '*')
@@ -604,7 +604,7 @@ async def get_stats(current_user: dict = Depends(get_current_user)):
 
 @api_router.get("/")
 async def root():
-    return {"message": "RetouchFly API v1.0", "status": "online"}
+    return {"message": "SenGuard API v1.0", "status": "online"}
 
 app.include_router(api_router)
 
@@ -616,8 +616,8 @@ async def startup():
     await db.scheduled_posts.create_index("user_id")
     await db.projects.create_index("user_id")
 
-    admin_email = os.environ.get("ADMIN_EMAIL", "admin@retouchfly.com")
-    admin_password = os.environ.get("ADMIN_PASSWORD", "RetouchFly2024!")
+    admin_email = os.environ.get("ADMIN_EMAIL", "admin@senguard.com")
+    admin_password = os.environ.get("ADMIN_PASSWORD", "SenGuard2024!")
     existing = await db.users.find_one({"email": admin_email})
     if not existing:
         await db.users.insert_one({
@@ -628,7 +628,7 @@ async def startup():
         logger.info(f"Admin seeded: {admin_email}")
 
     init_storage()
-    logger.info("RetouchFly API started successfully")
+    logger.info("SenGuard API started successfully")
 
 @app.on_event("shutdown")
 async def shutdown():

@@ -120,7 +120,7 @@ export default function Editor() {
     ctx.filter = filterStr;
     ctx.drawImage(img, 0, 0);
     const link = document.createElement("a");
-    link.download = `retouchfly-${activeFilter.name.replace(/\s+/g, "-").toLowerCase()}.png`;
+    link.download = `senguard-${activeFilter.name.replace(/\s+/g, "-").toLowerCase()}.png`;
     link.href = canvas.toDataURL("image/png");
     link.click();
   };
