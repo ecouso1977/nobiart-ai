@@ -8,6 +8,7 @@ import VideoGenerator from "@/pages/VideoGenerator";
 import Templates from "@/pages/Templates";
 import Scheduler from "@/pages/Scheduler";
 import ProfileOptimizer from "@/pages/ProfileOptimizer";
+import IDEAssistant from "@/pages/IDEAssistant";
 
 function ProtectedRoute() {
   const { user } = useAuth();
@@ -33,6 +34,7 @@ function AppRoutes() {
         <Route path="/templates" element={<Templates />} />
         <Route path="/schedule" element={<Scheduler />} />
         <Route path="/profile-optimizer" element={<ProfileOptimizer />} />
+        <Route path="/ide" element={<IDEAssistant />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

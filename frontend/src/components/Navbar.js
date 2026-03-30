@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { LayoutDashboard, ImagePlus, Video, LayoutTemplate, Calendar, Sparkles, Settings, LogOut, Menu, X, Zap } from "lucide-react";
+import { LayoutDashboard, ImagePlus, Video, LayoutTemplate, Calendar, Sparkles, Settings, LogOut, Menu, X, Zap, Code2 } from "lucide-react";
 
 const navItems = [
   { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -10,6 +10,7 @@ const navItems = [
   { path: "/templates", label: "Templates", icon: LayoutTemplate },
   { path: "/schedule", label: "Scheduler", icon: Calendar },
   { path: "/profile-optimizer", label: "Profile AI", icon: Sparkles },
+  { path: "/ide", label: "IDE Assistant", icon: Code2 },
 ];
 
 export default function Navbar() {

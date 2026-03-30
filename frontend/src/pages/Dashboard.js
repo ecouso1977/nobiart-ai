@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import axios from "axios";
-import { ImagePlus, Video, Calendar, Sparkles, Folder, Plus, TrendingUp, Clock } from "lucide-react";
+import { ImagePlus, Video, Calendar, Sparkles, Folder, Plus, TrendingUp, Clock, Code2 } from "lucide-react";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -12,6 +12,7 @@ const quickActions = [
   { to: "/video", label: "Gen Video", desc: "Create AI video with Veo", icon: Video, color: "#00E5FF", glow: "rgba(0,229,255,0.3)" },
   { to: "/templates", label: "Templates", desc: "Start from a template", icon: Folder, color: "#E2FF31", glow: "rgba(226,255,49,0.3)" },
   { to: "/profile-optimizer", label: "Profile AI", desc: "Optimize your profile", icon: Sparkles, color: "#9D4CDD", glow: "rgba(157,76,221,0.3)" },
+  { to: "/ide", label: "IDE Assistant", desc: "AI pair programmer", icon: Code2, color: "#00E5FF", glow: "rgba(0,229,255,0.3)" },
 ];
 
 export default function Dashboard() {

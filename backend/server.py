@@ -163,6 +163,13 @@ class ProfileOptimizeRequest(BaseModel):
     style: Optional[str] = "professional"
     username: Optional[str] = None
 
+class CodeAssistRequest(BaseModel):
+    code: str
+    language: str = "python"
+    action: str = "explain"  # explain, debug, refactor, complete, review, custom
+    custom_prompt: Optional[str] = None
+    context: Optional[str] = None
+
 # ===================== AUTH ENDPOINTS =====================
 
 @api_router.post("/auth/register")
@@ -472,6 +479,52 @@ Respond ONLY with valid JSON (no markdown):
     except Exception as e:
         logger.error(f"Profile optimization failed: {e}")
         raise HTTPException(status_code=500, detail=f"Optimization failed: {str(e)[:200]}")
+
+# ===================== IDE CODE ASSISTANT =====================
+
+ACTION_PROMPTS = {
+    "explain": "Explain the following {language} code clearly and concisely. Describe what it does, how it works, and any key concepts. Format your response with clear sections using markdown.",
+    "debug": "Analyze the following {language} code for bugs, errors, and issues. Identify each problem, explain why it's an issue, and provide the corrected code. Use markdown formatting.",
+    "refactor": "Refactor the following {language} code for better readability, performance, and best practices. Show the improved version with explanations of each change. Use markdown formatting.",
+    "complete": "Complete the following {language} code. Fill in any missing logic, implement TODOs, and make it fully functional. Show the complete implementation with brief explanations. Use markdown formatting.",
+    "review": "Perform a comprehensive code review of the following {language} code. Assess: code quality, performance, security, maintainability, and best practices. Rate each area and provide actionable suggestions. Use markdown formatting.",
+    "custom": "{custom_prompt}\n\nLanguage: {language}\nCode context: {context}",
+}
+
+@api_router.post("/code/assist")
+async def code_assist(req: CodeAssistRequest, current_user: dict = Depends(get_current_user)):
+    try:
+        import google.generativeai as genai
+        genai.configure(api_key=GEMINI_API_KEY)
+
+        action_key = req.action if req.action in ACTION_PROMPTS else "explain"
+        system_prefix = ACTION_PROMPTS[action_key].format(
+            language=req.language,
+            custom_prompt=req.custom_prompt or "Assist with this code.",
+            context=req.context or ""
+        )
+
+        prompt = f"""{system_prefix}
+
+```{req.language}
+{req.code}
+```"""
+
+        model = genai.GenerativeModel(
+            'gemini-1.5-flash',
+            system_instruction="You are an expert senior software engineer and coding assistant. You provide precise, actionable, and well-structured responses. Always use markdown formatting with code blocks for code snippets."
+        )
+        response = model.generate_content(prompt)
+
+        return {
+            "success": True,
+            "response": response.text,
+            "action": req.action,
+            "language": req.language
+        }
+    except Exception as e:
+        logger.error(f"Code assist failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Code assist failed: {str(e)[:200]}")
 
 # ===================== SOCIAL SCHEDULING =====================
 
