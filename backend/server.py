@@ -25,8 +25,8 @@ JWT_ALGORITHM = "HS256"
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
 EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY', '')
 FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
+GCS_BUCKET_NAME = os.environ.get('GCS_BUCKET_NAME', '')
 APP_NAME = "senguard"
-STORAGE_URL = "https://integrations.emergentagent.com/objstore/api/v1/storage"
 
 # --- MongoDB ---
 mongo_client = AsyncIOMotorClient(MONGO_URL)
@@ -47,44 +47,32 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- Object Storage ---
-storage_key = None
+# --- Google Cloud Storage ---
+_gcs_bucket = None
 
-def init_storage():
-    global storage_key
-    if storage_key:
-        return storage_key
-    try:
-        resp = requests.post(f"{STORAGE_URL}/init", json={"emergent_key": EMERGENT_LLM_KEY}, timeout=30)
-        resp.raise_for_status()
-        storage_key = resp.json()["storage_key"]
-        logger.info("Storage initialized")
-    except Exception as e:
-        logger.warning(f"Storage init failed: {e}")
-    return storage_key
+def get_gcs_bucket():
+    global _gcs_bucket
+    if _gcs_bucket:
+        return _gcs_bucket
+    if not GCS_BUCKET_NAME:
+        raise Exception("GCS_BUCKET_NAME not configured")
+    from google.cloud import storage as gcs
+    client = gcs.Client()
+    _gcs_bucket = client.bucket(GCS_BUCKET_NAME)
+    logger.info(f"GCS bucket connected: {GCS_BUCKET_NAME}")
+    return _gcs_bucket
 
 def put_object(path: str, data: bytes, content_type: str) -> dict:
-    key = init_storage()
-    if not key:
-        raise Exception("Storage not initialized")
-    resp = requests.put(
-        f"{STORAGE_URL}/objects/{path}",
-        headers={"X-Storage-Key": key, "Content-Type": content_type},
-        data=data, timeout=120
-    )
-    resp.raise_for_status()
-    return resp.json()
+    bucket = get_gcs_bucket()
+    blob = bucket.blob(path)
+    blob.upload_from_string(data, content_type=content_type)
+    return {"path": path}
 
 def get_object(path: str) -> tuple:
-    key = init_storage()
-    if not key:
-        raise Exception("Storage not initialized")
-    resp = requests.get(
-        f"{STORAGE_URL}/objects/{path}",
-        headers={"X-Storage-Key": key}, timeout=60
-    )
-    resp.raise_for_status()
-    return resp.content, resp.headers.get("Content-Type", "application/octet-stream")
+    bucket = get_gcs_bucket()
+    blob = bucket.blob(path)
+    data = blob.download_as_bytes()
+    return data, blob.content_type or "application/octet-stream"
 
 # --- Password Hashing ---
 def hash_password(password: str) -> str:
@@ -627,7 +615,13 @@ async def startup():
         })
         logger.info(f"Admin seeded: {admin_email}")
 
-    init_storage()
+    if GCS_BUCKET_NAME:
+        try:
+            get_gcs_bucket()
+        except Exception as e:
+            logger.warning(f"GCS init failed: {e}")
+    else:
+        logger.warning("GCS_BUCKET_NAME not set — file storage unavailable")
     logger.info("SenGuard API started successfully")
 
 @app.on_event("shutdown")

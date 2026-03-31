@@ -21,6 +21,7 @@ substitutions:
   _REGION: us-central1
   _REPO: senguard
   _BACKEND_URL: https://senguard-backend-REPLACE_AFTER_FIRST_DEPLOY.a.run.app
+  _GCS_BUCKET: senguard-storage
 
 options:
   logging: CLOUD_LOGGING_ONLY
@@ -94,7 +95,7 @@ steps:
       - --max-instances=10
       - --concurrency=80
       - --timeout=300
-      - --set-env-vars=DB_NAME=senguard_db,CORS_ORIGINS=*,FRONTEND_URL=${_BACKEND_URL}
+      - --set-env-vars=DB_NAME=senguard_db,CORS_ORIGINS=*,FRONTEND_URL=${_BACKEND_URL},GCS_BUCKET_NAME=${_GCS_BUCKET}
       - --set-secrets=MONGO_URL=senguard-mongo-url:latest,JWT_SECRET=senguard-jwt-secret:latest,GEMINI_API_KEY=senguard-gemini-key:latest,GOOGLE_API_KEY=senguard-gemini-key:latest,EMERGENT_LLM_KEY=senguard-emergent-key:latest,ADMIN_EMAIL=senguard-admin-email:latest,ADMIN_PASSWORD=senguard-admin-password:latest
     waitFor: [push-backend]
 

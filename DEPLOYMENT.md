@@ -57,7 +57,30 @@ gcloud auth configure-docker us-central1-docker.pkg.dev
 
 ---
 
-## STEP 3 — Set Up MongoDB Atlas
+## STEP 3 — Create GCS Bucket for File Storage
+
+```bash
+# Create the bucket (replace PROJECT_ID with gen-lang-client-0688216311)
+gsutil mb -p gen-lang-client-0688216311 -l us-central1 gs://senguard-storage
+
+# Block public access (files served through the API, not directly)
+gsutil ubla set on gs://senguard-storage
+
+# Grant the Cloud Run service account read/write access to the bucket
+PROJECT_NUMBER=$(gcloud projects describe gen-lang-client-0688216311 --format='value(projectNumber)')
+
+gsutil iam ch \
+  serviceAccount:${PROJECT_NUMBER}-compute@developer.gserviceaccount.com:roles/storage.objectAdmin \
+  gs://senguard-storage
+```
+
+> **Local development:** Authenticate with `gcloud auth application-default login` so the
+> SDK picks up credentials automatically. Set `GCS_BUCKET_NAME=senguard-storage` in your
+> backend `.env` file.
+
+---
+
+## STEP 4 — Set Up MongoDB Atlas
 
 1. Go to https://mongodb.com/atlas → Create free cluster
 2. Create a database user (username + password)
@@ -67,7 +90,7 @@ gcloud auth configure-docker us-central1-docker.pkg.dev
 
 ---
 
-## STEP 4 — Store Secrets in GCP Secret Manager
+## STEP 5 — Store Secrets in GCP Secret Manager
 
 ```bash
 # MongoDB Atlas connection string
@@ -96,7 +119,7 @@ echo -n "SenGuard2024!" | \
 
 ---
 
-## STEP 5 — Grant Cloud Build Permission to Secrets
+## STEP 6 — Grant Cloud Build Permission to Secrets
 
 ```bash
 PROJECT_NUMBER=$(gcloud projects describe gen-lang-client-0688216311 --format='value(projectNumber)')
@@ -124,7 +147,7 @@ gcloud projects add-iam-policy-binding gen-lang-client-0688216311 \
 
 ---
 
-## STEP 6 — First Manual Deploy (Bootstrap)
+## STEP 7 — First Manual Deploy (Bootstrap)
 
 Run this once to get the backend URL (needed for REACT_APP_BACKEND_URL):
 
@@ -144,7 +167,7 @@ Copy the backend URL output (e.g. `https://senguard-backend-abc123-uc.a.run.app`
 
 ---
 
-## STEP 7 — Connect GitHub to Cloud Build (CD Trigger)
+## STEP 8 — Connect GitHub to Cloud Build (CD Trigger)
 
 ### Via GCP Console (easiest):
 1. Go to: https://console.cloud.google.com/cloud-build/triggers
@@ -158,6 +181,7 @@ Copy the backend URL output (e.g. `https://senguard-backend-abc123-uc.a.run.app`
      _REGION         = us-central1
      _REPO           = senguard
      _BACKEND_URL    = https://senguard-backend-YOUR_HASH-uc.a.run.app
+     _GCS_BUCKET     = senguard-storage
      ```
 4. Click **Save**
 
@@ -168,13 +192,13 @@ gcloud builds triggers create github \
   --repo-owner=ecouso1977 \
   --branch-pattern='^main$' \
   --build-config=cloudbuild.yaml \
-  --substitutions='_REGION=us-central1,_REPO=senguard,_BACKEND_URL=https://senguard-backend-YOUR_HASH-uc.a.run.app' \
+  --substitutions='_REGION=us-central1,_REPO=senguard,_BACKEND_URL=https://senguard-backend-YOUR_HASH-uc.a.run.app,_GCS_BUCKET=senguard-storage' \
   --name=senguard-deploy
 ```
 
 ---
 
-## STEP 8 — Push Code to GitHub
+## STEP 9 — Push Code to GitHub
 
 ```bash
 cd /app
@@ -191,7 +215,7 @@ Every push to `main` will automatically:
 
 ---
 
-## STEP 9 — Verify Deployment
+## STEP 10 — Verify Deployment
 
 ```bash
 # Get service URLs
